@@ -1,0 +1,24 @@
+{
+  "name": "bookmarks",
+  "version": "1.0.0",
+  "description": "Small bookmarks handler based on fastify",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Heymès <lucas@lovethebomb.eu>",
+  "license": "ISC",
+  "keywords": [
+    "fastify"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lovethebomb/bookmarks.git"
+  },
+  "dependencies": {
+    "fastify": "^2.15.0",
+    "fastify-sequelize": "^1.0.4",
+    "sqlite3": "^4.2.0"
+  }
+}
