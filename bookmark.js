@@ -1,4 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
+const extract = require('meta-extractor');
 
 const BookmarkModel = {
   id: {
@@ -68,6 +69,17 @@ async function routes (fastify, options) {
       }
     }
   }
+
+  const FetchOptions = {
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          url: { type: 'string' },
+        }
+      }
+    }
+  }
   
   // Routes
   fastify.get('/', async (request, reply) => {
@@ -89,6 +101,18 @@ async function routes (fastify, options) {
       url
     });
     return { bookmark } 
+  })
+
+  fastify.post('/fetch', FetchOptions, async (request, reply) => {
+    const { uri } = request.body
+    const res = await extract({
+      uri,
+      limit: 4 * 1024 * 1024,
+      headers: {
+        'User-Agent': 'Twitterbot'
+      }
+    });
+    return { res } 
   })
 }
 
