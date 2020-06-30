@@ -1,7 +1,21 @@
 const fastify = require('fastify')({
   logger: true
 })
+const fastifyEnv = require('fastify-env')
+const bearerAuthPlugin = require('fastify-bearer-auth')
 const fsequelize = require('fastify-sequelize')
+
+const schema = {
+  type: 'object',
+  required: [ 'BOOKMARKS_BEARER_TOKEN' ],
+  properties: {
+    BOOKMARKS_BEARER_TOKEN: {
+      type: 'string'
+    }
+  }
+}
+
+const keys = new Set([process.env.BOOKMARKS_BEARER_TOKEN])
 
 const sequelizeConfig = {
     instance: 'db',
@@ -12,7 +26,9 @@ const sequelizeConfig = {
 
 
 fastify
+  .register(fastifyEnv, { schema })
   .register(fsequelize, sequelizeConfig)
+  .register(bearerAuthPlugin, {keys})
   .register(require('./bookmark'))
   .ready()
 
