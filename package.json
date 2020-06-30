@@ -19,6 +19,7 @@
   "dependencies": {
     "fastify": "^2.15.0",
     "fastify-sequelize": "^1.0.4",
+    "meta-extractor": "^2.0.0",
     "sqlite3": "^4.2.0"
   }
 }
