@@ -4,7 +4,8 @@
   "description": "Small bookmarks handler based on fastify",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
+    "dev": "npm run start",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lucas Heymès <lucas@lovethebomb.eu>",
@@ -19,9 +20,9 @@
   "dependencies": {
     "fastify": "^2.15.0",
     "fastify-bearer-auth": "^4.2.0",
-    "fastify-env": "^1.0.1",
     "fastify-sequelize": "^1.0.4",
     "meta-extractor": "^2.0.0",
     "sqlite3": "^4.2.0"
-  }
+  },
+  "devDependencies": {}
 }
