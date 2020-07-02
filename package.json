@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run start",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx tap test.js"
   },
   "author": "Lucas Heymès <lucas@lovethebomb.eu>",
   "license": "ISC",
@@ -24,5 +24,8 @@
     "meta-extractor": "^2.0.0",
     "sqlite3": "^4.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sequelize-mock": "^0.10.2",
+    "tap": "^14.10.7"
+  }
 }
