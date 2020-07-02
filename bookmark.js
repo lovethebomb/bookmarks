@@ -38,7 +38,8 @@ const BookmarkSchema = {
 }
 
 async function routes (fastify, options) {
-  const Bookmark = fastify.db.define('bookmark', BookmarkModel)
+  // TODO: Find a better way to pass mock model
+  const Bookmark = fastify.db.define('bookmark', options.mock? options.mock : BookmarkModel)
   Bookmark.sync()
 
   fastify.addSchema(BookmarkSchema)
@@ -59,12 +60,13 @@ async function routes (fastify, options) {
     schema: {
       body: {
         type: 'object',
+        required: ['source', 'title', 'url'],
         properties: {
-          image: { type: 'string' },
           description: { type: 'string' },
+          image: { type: 'string' },
           source: { type: 'string' },
           title: { type: 'string' },
-          url: { type: 'string' },
+          url: { type: 'string' }
         }
       }
     }
