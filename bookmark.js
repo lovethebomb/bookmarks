@@ -82,7 +82,20 @@ async function routes (fastify, options) {
       }
     }
   }
-  
+ 
+  const DeleteOptions = {
+    schema: {
+      
+      params: {
+        type: 'object',
+        required: ['bookmarkId'],
+        properties: {
+          bookmarkId: { type: 'string' }
+        },
+      }
+    }
+  }
+
   // Routes
   fastify.get('/', async (request, reply) => {
     const bookmarks = await Bookmark.findAll({
@@ -114,8 +127,32 @@ async function routes (fastify, options) {
         'User-Agent': 'Twitterbot'
       }
     });
+
     return { res } 
   })
+
+  fastify.delete('/:bookmarkId', DeleteOptions, async (request, reply) => {
+    const { bookmarkId } = request.params
+
+    try {
+      await Bookmark.destroy({
+        where: {
+          id: bookmarkId
+        }
+      })
+      return reply
+        .code(204)
+        .send({
+          status: 'deleted'
+        })
+    } catch (err) {
+      return reply
+        .code(500)
+        .send({
+          message: `Failed to delete bookmark ${bookmarkId}`
+        })
+    }
+ });
 }
 
 module.exports = routes
