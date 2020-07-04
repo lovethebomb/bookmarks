@@ -20,6 +20,7 @@
   "dependencies": {
     "fastify": "^2.15.0",
     "fastify-bearer-auth": "^4.2.0",
+    "fastify-cors": "^3.0.3",
     "fastify-sequelize": "^1.0.4",
     "meta-extractor": "^2.0.0",
     "sqlite3": "^4.2.0"
