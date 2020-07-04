@@ -2,7 +2,6 @@ const tap = require('tap')
 const fp = require('fastify-plugin')
 
 const Fastify = require('fastify')
-const bearerAuthPlugin = require('fastify-bearer-auth')
 const SequelizeMock = require('sequelize-mock');
 
 const BOOKMARKS_BEARER_TOKEN = 'a-super-secret-key'
@@ -38,7 +37,7 @@ const buildFastify = () => {
 
   fastify
     .register(fastifySequelizeMock)
-    .register(bearerAuthPlugin, {keys})
+    .register(require('fastify-bearer-auth'), {keys})
     .register(require('./bookmark'), { mock: BookmarkMock })
     return fastify
   }
