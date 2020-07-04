@@ -1,6 +1,3 @@
-const bearerAuthPlugin = require('fastify-bearer-auth')
-const fsequelize = require('fastify-sequelize')
-
 const HOST = process.env.HOST || '127.0.0.1'
 const PORT = process.env.PORT || 3000
 const BOOKMARKS_BEARER_TOKEN = process.env.BOOKMARKS_BEARER_TOKEN || 'a-super-secret-key'
@@ -22,8 +19,9 @@ const fastify = require('fastify')({
 })
 
 fastify
-  .register(fsequelize, sequelizeConfig)
-  .register(bearerAuthPlugin, {keys})
+  .register(require('fastify-sequelize'), sequelizeConfig)
+  .register(require('fastify-cors'))
+  .register(require('fastify-bearer-auth'), {keys})
   .register(require('./bookmark'))
   .ready()
 

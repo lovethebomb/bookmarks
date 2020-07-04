@@ -37,64 +37,64 @@ const BookmarkSchema = {
   }
 }
 
+const ListOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'array',
+        bookmarks: {
+          $ref: "#bookmark"
+        }
+      }
+    }
+  }
+}
+
+const CreateOptions = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['source', 'title', 'url'],
+      properties: {
+        description: { type: 'string' },
+        image: { type: 'string' },
+        source: { type: 'string' },
+        title: { type: 'string' },
+        url: { type: 'string' }
+      }
+    }
+  }
+}
+
+const FetchOptions = {
+  schema: {
+    body: {
+      type: 'object',
+      properties: {
+        url: { type: 'string' },
+      }
+    }
+  }
+}
+
+const DeleteOptions = {
+  schema: {
+    params: {
+      type: 'object',
+      required: ['bookmarkId'],
+      properties: {
+        bookmarkId: { type: 'string' }
+      },
+    }
+  }
+}
+
 async function routes (fastify, options) {
   // TODO: Find a better way to pass mock model
-  const Bookmark = fastify.db.define('bookmark', options.mock? options.mock : BookmarkModel)
+  const Bookmark = fastify.db.define('bookmark', options.mock ? options.mock : BookmarkModel)
   Bookmark.sync()
 
   fastify.addSchema(BookmarkSchema)
-
-  const ListOptions = {
-    schema: {
-      response: {
-        200: {
-          type: 'array',
-          bookmarks: {
-            $ref: "#bookmark"
-          }
-        }
-      }
-    }
-  }
-  const CreateOptions = {
-    schema: {
-      body: {
-        type: 'object',
-        required: ['source', 'title', 'url'],
-        properties: {
-          description: { type: 'string' },
-          image: { type: 'string' },
-          source: { type: 'string' },
-          title: { type: 'string' },
-          url: { type: 'string' }
-        }
-      }
-    }
-  }
-
-  const FetchOptions = {
-    schema: {
-      body: {
-        type: 'object',
-        properties: {
-          url: { type: 'string' },
-        }
-      }
-    }
-  }
- 
-  const DeleteOptions = {
-    schema: {
-      
-      params: {
-        type: 'object',
-        required: ['bookmarkId'],
-        properties: {
-          bookmarkId: { type: 'string' }
-        },
-      }
-    }
-  }
 
   // Routes
   fastify.get('/', async (request, reply) => {
